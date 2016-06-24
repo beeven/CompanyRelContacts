@@ -1,0 +1,45 @@
+@font-face {
+    font-family:'Consolas Regular';
+    src: url("/app/account-list/create-account/consolas-webfont.woff");
+}
+
+.print-password,
+.print-account
+    font-family: 'consolas','Consolas Regular',monospace;
+    font-size: 20px;
+
+.glyphicon.glyphicon-rotate
+  animation rotate 2s infinite
+
+@keyframes rotate {
+  from { transform: rotate(0) }
+  to { transform:rotate(360deg) }
+}
+
+
+
+#print-area
+  padding 20px
+  background-color white
+  table
+    width 100%
+    table-layout fixed
+    td
+      width 30%
+      height 25px
+    td.head
+      width 20%
+      font-weight bold
+
+
+
+@media print
+  #print-area
+    display block
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+  #print-area *
+    visibility visible

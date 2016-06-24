@@ -1,0 +1,19 @@
+{
+  "name": "company-rel-contacts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "mssql": "^3.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "should": "^9.0.2"
+  }
+}

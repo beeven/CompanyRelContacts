@@ -1,0 +1,48 @@
+
+
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="companyId" class="col-sm-2 control-label">企业十位编码</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="companyId" placeholder="4401986999" [(ngModel)]="companyId">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="creating" (click)="createAccount()">
+        <span class="glyphicon glyphicon-refresh glyphicon-rotate" [style.visibility]="creating ? 'visible':'hidden'"></span>
+        查询并创建帐号
+      </button>
+    </div>
+    <div class="col-sm-4">
+      <button type="submit" class="btn btn-warning btn-block" (click)="print()">打 印</button>
+    </div>
+  </div>
+</form>
+
+  <div class="information">
+    <alert *ngFor="let alert of alerts;let i = index" [type]="alert.type" dismissible="true" dismissOnTimeout="4000" (close)="closeAlert(i)">
+    {{ alert?.message }}
+    </alert>
+  </div>
+
+<div id="print-area">
+  <h4>广州海关易通关平台临时帐号</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td class="head">企业编码</td>
+        <td>{{createResult.companyId}}</td>
+        <td class="head">企业名称</td>
+        <td>{{createResult.companyName}}</td>
+      </tr>
+      <tr>
+        <td class="head">登录帐号</td><td class="print-account">{{createResult.companyId}}</td>
+        <td class="head">登录密码</td><td class="print-password">{{createResult.password}}</td>
+      </tr>
+      <tr>
+        <td class="head">帐号有效期</td><td>{{createResult.expire | cnDate:'LLL'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

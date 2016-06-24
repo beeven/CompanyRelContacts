@@ -1,0 +1,30 @@
+<table class="account-list col-sm-12 table table-hover">
+  <thead>
+    <th>Email</th>
+    <th>公司名称</th>
+    <th>企业编码</th>
+    <th>联系人手机</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let account of accounts | slice:pageStartIndex:pageEndIndex ">
+      <td>{{account.TRADE_CO}}</td>
+      <td>{{account.FULL_NAME}}</td>
+      <td>{{account.COP_GB_CODE}}</td>
+      <td>{{account.SOCIAL_CREDIT_CODE}}</td>
+      <td>{{account.CONTAC_CO}}</td>
+      <td>{{account.CONTACT_MOBILE}}</td>
+      <td>{{account.LAW_MAN}}</td>
+      <td>{{account.LAW_MAN}}</td>
+      <td class="buttons">
+        <span class="glyphicon glyphicon-trash" (click)="deleteAccount(account)"></span>
+        <span class="glyphicon glyphicon-cog" (click)="editAccount(account)"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<pagination [totalItems]="totalItems"
+            [itemsPerPage]="pageSize"
+            [(ngModel)]="currentPage"
+            (pageChanged)="pageChanged($event)">
+</pagination>
