@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {PAGINATION_DIRECTIVES} from 'ng2-bootstrap/components/pagination';
 import { Account } from '../account';
 import { AccountService } from '../account.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   moduleId: module.id,
@@ -16,38 +18,36 @@ export class BrowsingListComponent implements OnInit {
   pageSize:number = 10;
   errorMessage:string;
 
+  @Output('selectedAccount') selectedChanged = new EventEmitter<Account>();
+
   accounts: Account[];
-  constructor(private accountService: AccountService) {}
+  currentPageStream= new Subject<number>();
+  constructor(private accountService: AccountService) {
+    this.currentPageStream
+                        .debounceTime(300)
+                        .distinctUntilChanged()
+                        .switchMap(currentPage => this.accountService.getAccounts(this.pageSize,currentPage-1))
+                        .subscribe(
+                          (result) => {
+                            this.totalItems = result.total;
+                            this.accounts = result.records;
+                          },
+                          error => this.errorMessage = <any>error
+                        );
+
+  }
 
   ngOnInit() {
-    this.getAccounts(this.pageSize, this.currentPage);
-  }
-  getAccounts(pageSize:number, currentPage:number) {
-    this.accountService.getAccounts(this.pageSize,this.currentPage-1)
-    .subscribe(
-      (result:any)=>{
-        this.accounts = result.records;
-        this.totalItems = result.total;
-      },
-      (error) => {this.errorMessage = <any>error;}
-    );
-
+    //this.getAccounts(this.pageSize, this.currentPage);
+    this.currentPageStream.next(1);
   }
 
   pageChanged(event:any):void {
-    this.currentPage = event.page;
-    this.getAccounts(this.pageSize,this.currentPage);
+    this.currentPageStream.next(event.page);
   }
 
-  deleteAccount(account){
-    this.accountService.deleteAccount(account.userId).subscribe(
-        (arg)=>{
-          var index = this.accounts.indexOf(account);
-          if(index != -1) {
-            this.accounts.splice(index,1);
-          }
-        },
-        (error) =>{ this.errorMessage = <any>error; console.error("catched error in list:",error) }
-      );
+  editAccount(account){
+    this.selectedChanged.emit(account);
   }
+
 }

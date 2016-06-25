@@ -7,7 +7,7 @@ import './rxjs-operators';
 @Injectable()
 export class AccountService {
   constructor(private http: Http) {}
-  private accountsUrl = 'api/accounts';
+  private accountsUrl = 'api/contacts';
 
   getAccounts(pageSize:number, currentPage:number): Observable<any> {
     return this.http.get(`${this.accountsUrl}/${pageSize}/${currentPage}`)
@@ -45,7 +45,7 @@ export class AccountService {
                     .catch(this.handleError);
   }
 
-  setMobile(companyId:string, contactMobile:string, lawManMobile:string) {
+  setMobile(companyId:string, contactMobile:string, lawManMobile:string): Observable<Account> {
       let body = JSON.stringify({companyId, contactMobile, lawManMobile});
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers });

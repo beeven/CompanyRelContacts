@@ -5,6 +5,10 @@ var config = require("./config");
 
 class Database {
     constructor() {
+
+    }
+    connect(){
+      return Promise.resolve();
     }
     browse(pageSize, currentPage) {
         return Promise.coroutine(function*(){

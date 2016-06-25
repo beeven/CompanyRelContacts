@@ -12,8 +12,14 @@ router.get("/query/:criteria",function(req,res){
     });
 });
 router.get("/:pageSize/:currentPage",function(req,res){
-    var pageSize = req.params.pageSize;
-    var currentPage = req.params.currentPage;
+    var pageSize = parseInt(req.params.pageSize);
+    var currentPage = parseInt(req.params.currentPage);
+    if(isNaN(pageSize) || pageSize < 0) {
+      pageSize =10;
+    }
+    if(isNaN(currentPage) || currentPage < 0) {
+      currentPage = 0;
+    }
     db.browse(pageSize, currentPage).then(function(records){
         res.json({result:"ok", data: {
             total: records[0].TotalRows,
@@ -23,7 +29,7 @@ router.get("/:pageSize/:currentPage",function(req,res){
         res.json({result:"fail", error:err.toString()});
     });
 });
-router.post("/",function(req,res){
+router.post("/setMobile",function(req,res){
     var companyId = req.body.companyId;
     var contactMobile = req.body.contactMobile;
     var lawManMobile = req.body.lawManMobile;

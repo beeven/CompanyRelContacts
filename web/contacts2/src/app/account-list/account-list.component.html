@@ -3,13 +3,15 @@
     <div class="form-group">
       <label for="criteria" class="sr-only control-label">搜索</label>
       <div class="col-sm-4">
-        <input #term type="text" id="criteria" class="form-control" (keyup)="queryList.query(term.value)" [(ngModel)]="criteria" placeholder="登录名／手机号码／企业编码">
+        <input #term type="text" id="criteria" class="form-control"
+              (keyup)="queryList.query(term.value)" [(ngModel)]="criteria"
+              placeholder="企业编码／公司名称／社会信用代码／手机号码">
       </div>
         <button class="btn btn-default" (click)="queryList.query(term.value)" >
           <span class="glyphicon glyphicon-search"></span>
         </button>
       <button class="btn btn-success pull-right" (click)="openCreateWindow()">
-        <span class="glyphicon glyphicon-plus">{{creatingAccount? '完成' :'创建制卡系统临时账号'}}</span>
+        <span class="glyphicon glyphicon-plus">{{creatingAccount? '完成' :'设置企业联系人信息'}}</span>
       </button>
     </div>
   </form>
@@ -17,11 +19,11 @@
 
 <div class="row" [collapse]="!creatingAccount">
   <div class="well well-lg">
-    <app-create-account></app-create-account>
+    <app-create-account [selectedAccount]="selectedAccount"></app-create-account>
   </div>
 </div>
 
 <div class="row" [collapse]="creatingAccount">
-  <app-browsing-list *ngIf="criteria == ''" ></app-browsing-list>
-  <app-query-list [collapse]="criteria == ''" #queryList></app-query-list>
+  <app-browsing-list *ngIf="criteria == ''" (selectedAccount)="selectedAccountChanged($event)"></app-browsing-list>
+  <app-query-list [collapse]="criteria == ''" #queryList (selectedAccount)="selectedAccountChanged($event)"></app-query-list>
 </div>

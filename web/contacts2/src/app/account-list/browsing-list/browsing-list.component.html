@@ -1,19 +1,24 @@
 <table class="account-list col-sm-12 table table-hover">
   <thead>
-    <th>Email</th>
-    <th>公司名称</th>
     <th>企业编码</th>
+    <th>公司名称</th>
+    <th>社会信用代码</th>
+    <th>联系人</th>
     <th>联系人手机</th>
+    <th>法人</th>
+    <th>法人手机</th>
     <th></th>
   </thead>
   <tbody>
     <tr *ngFor="let account of accounts">
-      <td>{{account.email}}</td>
-      <td>{{account.companyName}}</td>
-      <td>{{account.companyId}}</td>
-      <td>{{account.mobile}}</td>
+      <td>{{account.TRADE_CO}}</td>
+      <td>{{account.FULL_NAME}}</td>
+      <td>{{account.SOCIAL_CREDIT_CODE}}</td>
+      <td>{{account.CONTAC_CO}}</td>
+      <td>{{account.CONTACT_MOBILE}}</td>
+      <td>{{account.LAW_MAN}}</td>
+      <td>{{account.LAW_MAN_MOBILE}}</td>
       <td class="buttons">
-        <span class="glyphicon glyphicon-trash" (click)="deleteAccount(account)"></span>
         <span class="glyphicon glyphicon-cog" (click)="editAccount(account)"></span>
       </td>
     </tr>

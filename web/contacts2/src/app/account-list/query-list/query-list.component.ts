@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {PAGINATION_DIRECTIVES} from 'ng2-bootstrap/components/pagination';
 import { Account } from '../account';
 import { AccountService } from '../account.service';
@@ -15,6 +15,7 @@ import { Subject } from 'rxjs/Subject';
 export class QueryListComponent implements OnInit {
 
   @Input() criteria: string;
+  @Output('selectedAccount') selectedChanged = new EventEmitter<Account>();
 
   currentPage: number = 1;
   pageSize: number = 10;
@@ -37,7 +38,7 @@ export class QueryListComponent implements OnInit {
 
   constructor(private accountService: AccountService) {
       this.queryTermStream
-        .debounceTime(300)
+        .debounceTime(500)
         .distinctUntilChanged()
         .filter( x => x.length >= 2)
         .switchMap((term: string) => this.accountService.query(term))
@@ -66,7 +67,7 @@ export class QueryListComponent implements OnInit {
       (accounts) => { this.totalItems = accounts.length; },
       (error) => this.errorMessage = <any>error
       );
-  }*/
+  }
 
   deleteAccount(account) {
     this.accountService.deleteAccount(account.userId)
@@ -80,8 +81,9 @@ export class QueryListComponent implements OnInit {
       (error) => { this.errorMessage = <any>error; console.error("catched error in list:", error) }
       )
   }
+  */
 
   editAccount(account) {
-
+    this.selectedChanged.emit(account);
   }
 }

@@ -2,21 +2,29 @@
 
   <form class="form-horizontal">
   <div class="form-group">
-    <label for="companyId" class="col-sm-2 control-label">企业十位编码</label>
+    <label class="col-sm-2 control-label">企业十位编码</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="companyId" placeholder="4401986999" [(ngModel)]="companyId">
+      <input type="text" class="form-control"  placeholder="4401986999" [(ngModel)]="_selectedAccount.TRADE_CO">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label">联系人手机</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" [(ngModel)]="_selectedAccount.CONTACT_MOBILE" placeholder="13600200500">
+    </div>
+    <label for="" class="col-sm-2 control-label">法人手机</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" [(ngModel)]="_selectedAccount.LAW_MAN_MOBILE" placeholder="13600200500">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-4">
-      <button type="submit" class="btn btn-primary btn-block" [disabled]="creating" (click)="createAccount()">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="creating" (click)="setMobile()">
         <span class="glyphicon glyphicon-refresh glyphicon-rotate" [style.visibility]="creating ? 'visible':'hidden'"></span>
-        查询并创建帐号
+        更新联系人信息
       </button>
     </div>
-    <div class="col-sm-4">
-      <button type="submit" class="btn btn-warning btn-block" (click)="print()">打 印</button>
-    </div>
+
   </div>
 </form>
 
@@ -27,21 +35,26 @@
   </div>
 
 <div id="print-area">
-  <h4>广州海关易通关平台临时帐号</h4>
+  <h4>企业信息</h4>
   <table>
     <tbody>
       <tr>
         <td class="head">企业编码</td>
-        <td>{{createResult.companyId}}</td>
-        <td class="head">企业名称</td>
-        <td>{{createResult.companyName}}</td>
+        <td>{{_selectedAccount.TRADE_CO}}</td>
+        <td class="head">公司名称</td>
+        <td>{{_selectedAccount.FULL_NAME}}</td>
       </tr>
       <tr>
-        <td class="head">登录帐号</td><td class="print-account">{{createResult.companyId}}</td>
-        <td class="head">登录密码</td><td class="print-password">{{createResult.password}}</td>
+        <td class="head">组织机构代码</td><td>{{_selectedAccount.COP_GB_CODE}}</td>
+        <td class="head">社会信用代码</td><td>{{_selectedAccount.SOCIAL_CREDIT_CODE}}</td>
       </tr>
       <tr>
-        <td class="head">帐号有效期</td><td>{{createResult.expire | cnDate:'LLL'}}</td>
+        <td class="head">联系人</td><td>{{_selectedAccount.CONTAC_CO}}</td>
+        <td class="head">联系人手机</td><td>{{_selectedAccount.CONTACT_MOBILE}}</td>
+      </tr>
+      <tr>
+        <td class="head">法人</td><td>{{_selectedAccount.LAW_MAN}}</td>
+        <td class="head">法人手机</td><td>{{_selectedAccount.LAW_MAN_MOBILE}}</td>
       </tr>
     </tbody>
   </table>

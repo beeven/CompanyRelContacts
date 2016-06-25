@@ -9,5 +9,5 @@ import { AccountListComponent } from './account-list';
   directives: [AccountListComponent]
 })
 export class AppComponent {
-  title = "易通关账号管理";
+  title = "互联网＋企业联系人信息";
 }

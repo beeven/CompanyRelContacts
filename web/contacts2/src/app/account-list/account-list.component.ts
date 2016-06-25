@@ -20,6 +20,7 @@ export class AccountListComponent implements OnInit {
   errorMessage: string;
   creatingAccount = false;
   criteria = '';
+  selectedAccount:Account;
   constructor() {
   }
   ngOnInit() {
@@ -27,8 +28,13 @@ export class AccountListComponent implements OnInit {
   }
 
   openCreateWindow() {
+    this.selectedAccount = null;
     this.creatingAccount = !this.creatingAccount
   }
 
+  selectedAccountChanged(event: any) {
+    this.creatingAccount = true;
+    this.selectedAccount = event;
+  }
 
 }
