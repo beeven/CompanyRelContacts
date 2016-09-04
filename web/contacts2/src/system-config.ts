@@ -8,7 +8,7 @@
 /** Map relative paths to URLs. */
 const map: any = {
   'ng2-bootstrap':'vendor/ng2-bootstrap',
-  'angular2-in-memory-web-api': 'https://npmcdn.com/angular2-in-memory-web-api',
+  'angular2-in-memory-web-api': 'https://unpkg.com/angular2-in-memory-web-api',
   'moment':'vendor/moment'
 };
 
